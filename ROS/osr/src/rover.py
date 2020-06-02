@@ -180,6 +180,8 @@ class Rover(object):
         """
         try:
             radius = twist.linear.x / twist.angular.z
+            if radius == 0:
+                return float("Inf")
         except ZeroDivisionError:
             return float("Inf")
         
@@ -236,9 +238,8 @@ class Rover(object):
         approx_turning_radius = sum(sorted([r_front_farthest, r_front_closest, r_back_farthest, r_back_closest])[1:3])/2.0
         if math.isnan(approx_turning_radius):
             approx_turning_radius = float("Inf")
-        rospy.logdebug("Current approximate turning radius: {}".format(round(approx_turning_radius, 2)))
+        rospy.logdebug_throttle(0.5, "Current approximate turning radius: {}".format(round(approx_turning_radius, 2)))
         self.curr_turning_radius = approx_turning_radius
-
 
 if __name__ == '__main__':
     rospy.init_node('rover', log_level=rospy.DEBUG)
