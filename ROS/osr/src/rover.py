@@ -6,6 +6,7 @@ import math
 from sensor_msgs.msg import JointState
 from geometry_msgs.msg import Twist
 from osr_msgs.msg import CommandDrive, CommandCorner
+from std_msgs.msg import Float64
 
 
 class Rover(object):
@@ -34,6 +35,7 @@ class Rover(object):
 
         self.corner_cmd_pub = rospy.Publisher("/cmd_corner", CommandCorner, queue_size=1)
         self.drive_cmd_pub = rospy.Publisher("/cmd_drive", CommandDrive, queue_size=1)
+        self.turning_radius_pub = rospy.Publisher("/turning_radius", Float64, queue_size=1)
 
     def cmd_cb(self, twist_msg):
         desired_turning_radius = self.twist_to_turning_radius(twist_msg)
@@ -238,6 +240,10 @@ class Rover(object):
         approx_turning_radius = sum(sorted([r_front_farthest, r_front_closest, r_back_farthest, r_back_closest])[1:3])/2.0
         if math.isnan(approx_turning_radius):
             approx_turning_radius = float("Inf")
+        if abs(approx_turning_radius) < self.max_radius:
+            self.turning_radius_pub.publish(Float64(approx_turning_radius))
+        else:
+            self.turning_radius_pub.publish(Float64(self.max_radius))
         rospy.logdebug_throttle(0.5, "Current approximate turning radius: {}".format(round(approx_turning_radius, 2)))
         self.curr_turning_radius = approx_turning_radius
 
