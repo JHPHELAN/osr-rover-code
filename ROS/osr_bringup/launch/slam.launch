@@ -1,0 +1,8 @@
+<launch>
+ <node name="slam"
+       pkg="gmapping"
+       type="slam_gmapping">
+    <remap from="scan" to="/lidar/scan"/>
+    <rosparam param="srr">0.1</rosparam>
+</node>
+</launch>
