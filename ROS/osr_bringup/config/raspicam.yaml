@@ -1,0 +1,26 @@
+image_width: 640
+image_height: 480
+camera_name: raspicam
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [633.84092,   0.     , 311.21216,
+           0.     , 634.82472, 229.94072,
+           0.     ,   0.     ,   1.     ]
+camera_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [-0.018213, -0.154302, 0.000275, -0.002530, 0.000000]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1., 0., 0.,
+         0., 1., 0.,
+         0., 0., 1.]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [623.76947,   0.     , 309.38177,   0.     ,
+           0.     , 631.01923, 229.83012,   0.     ,
+           0.     ,   0.     ,   1.     ,   0.     ]
