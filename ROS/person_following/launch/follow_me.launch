@@ -1,0 +1,11 @@
+<launch>
+
+    <arg name="fiducial_len" default="0.1"/>
+    <include file="$(find person_following)/launch/track_me.launch">
+        <arg name="fiducial_len" value="$(arg fiducial_len)"/>
+    </include>
+
+    <node name="follower_controller" pkg="person_following" type="follow_frame.py" output="screen">
+    </node>
+
+</launch>

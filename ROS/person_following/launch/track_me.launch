@@ -1,0 +1,11 @@
+<launch>
+ 
+    <arg name="fiducial_len" default="0.1"/>
+    <node name="aruco_detect" pkg="aruco_detect" type="aruco_detect">
+        <remap from="/camera" to="/front_webcam/image_raw"/>
+        <remap from="/camera_info" to="/front_webcam/camera_info"/>
+        <param name="dictionary" value="0"/>
+        <param name="fiducial_len" value="$(arg fiducial_len)"/>
+    </node>
+
+</launch>
