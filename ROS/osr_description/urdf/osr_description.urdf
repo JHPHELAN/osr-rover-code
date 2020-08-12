@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="osr_description">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.097539 -0.0014226 0.20698"
+        rpy="0 0 0" />
+      <mass
+        value="2.2246" />
+      <inertia
+        ixx="0.0052023"
+        ixy="4.6363E-11"
+        ixz="0.00087959"
+        iyy="0.008125"
+        iyz="1.5506E-11"
+        izz="0.012098" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_rocker">
+    <inertial>
+      <origin
+        xyz="0.017902 0.034653 0.068303"
+        rpy="0 0 0" />
+      <mass
+        value="0.39081" />
+      <inertia
+        ixx="0.00067254"
+        ixy="-3.7187E-07"
+        ixz="9.8774E-10"
+        iyy="0.00063353"
+        iyz="-3.9895E-05"
+        izz="0.00017004" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/left_rocker.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/left_rocker.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="body_axis"
+    type="fixed">
+    <origin
+      xyz="-0.263500464134776 0.18018125 0.225295670634321"
+      rpy="-1.53745923062483 0 -1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_rocker" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_bogie">
+    <inertial>
+      <origin
+        xyz="0.0159129563261055 0.0789338362309541 0.0323269291487249"
+        rpy="0 0 0" />
+      <mass
+        value="0.435073039460992" />
+      <inertia
+        ixx="0.00034539052621273"
+        ixy="-2.9766405962614E-07"
+        ixz="-8.21364529852435E-08"
+        iyy="0.000272959531000673"
+        iyz="7.4859493487776E-05"
+        izz="0.000207579636692038" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/left_bogie.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/left_bogie.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_lb_axis"
+    type="revolute">
+    <origin
+      xyz="0 0.024945 0.37574"
+      rpy="0.033199 0 0" />
+    <parent
+      link="left_rocker" />
+    <child
+      link="left_bogie" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="front_left_corner">
+    <inertial>
+      <origin
+        xyz="0.0190937789272759 0.0853204048254746 0.077709822040233"
+        rpy="0 0 0" />
+      <mass
+        value="0.17724666596752" />
+      <inertia
+        ixx="0.000121212210844654"
+        ixy="1.54229981527862E-07"
+        ixz="8.01987687482812E-08"
+        iyy="0.000117864441943387"
+        iyz="7.74538805481638E-08"
+        izz="7.62771536974882E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_left_corner.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_left_corner.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_left_corner_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.088265 0.17145"
+      rpy="0 1.5708 0" />
+    <parent
+      link="left_bogie" />
+    <child
+      link="front_left_corner" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="front_left_wheel">
+    <inertial>
+      <origin
+        xyz="0.000920086014966209 -3.49804150534538E-07 -1.05298539741783E-07"
+        rpy="0 0 0" />
+      <mass
+        value="1.42144024715653" />
+      <inertia
+        ixx="0.00582217468219605"
+        ixy="1.07432654038825E-07"
+        ixz="-7.79477192520769E-08"
+        iyy="0.00388788055438553"
+        iyz="9.18692750520014E-08"
+        izz="0.00388799980724153" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_left_drive_joint"
+    type="continuous">
+    <origin
+      xyz="0.01905 0.13525 0.019048"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="front_left_corner" />
+    <child
+      link="front_left_wheel" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="middle_left_wheel">
+    <inertial>
+      <origin
+        xyz="0.000920091215166313 -8.1005955020645E-07 -1.66036282058251E-07"
+        rpy="0 0 0" />
+      <mass
+        value="1.42143821576089" />
+      <inertia
+        ixx="0.00582217347159971"
+        ixy="1.07745302000017E-07"
+        ixz="-7.84503139343577E-08"
+        iyy="0.00388787940367472"
+        iyz="9.13379014825339E-08"
+        izz="0.00388799915296369" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/middle_left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/middle_left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="middle_left_drive_joint"
+    type="continuous">
+    <origin
+      xyz="-0.066529 0.20491 -0.12676"
+      rpy="1.6093 0 3.1416" />
+    <parent
+      link="left_bogie" />
+    <child
+      link="middle_left_wheel" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="back_left_corner">
+    <inertial>
+      <origin
+        xyz="4.37788521762128E-05 0.105384356290001 0.0586598203203101"
+        rpy="0 0 0" />
+      <mass
+        value="0.177246661317524" />
+      <inertia
+        ixx="0.000121212211034307"
+        ixy="1.54229839424617E-07"
+        ixz="8.01987471422673E-08"
+        iyy="0.000117864441990022"
+        iyz="7.7453855401968E-08"
+        izz="7.6277153938417E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_left_corner.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_left_corner.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back_left_corner_joint"
+    type="revolute">
+    <origin
+      xyz="0.01905 0.068201 -0.05715"
+      rpy="-1.5708 1.5708 0" />
+    <parent
+      link="left_rocker" />
+    <child
+      link="back_left_corner" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="back_left_wheel">
+    <inertial>
+      <origin
+        xyz="0.000922287007112749 -8.36428904582576E-07 0.0887645961886513"
+        rpy="0 0 0" />
+      <mass
+        value="1.42144269074226" />
+      <inertia
+        ixx="0.00582217607560816"
+        ixy="1.07333187365085E-07"
+        ixz="-7.85893990506594E-08"
+        iyy="0.00388788209482116"
+        iyz="9.17567327097483E-08"
+        izz="0.00388800033758064" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back_left_drive_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.066549 0"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="back_left_corner" />
+    <child
+      link="back_left_wheel" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="right_rocker">
+    <inertial>
+      <origin
+        xyz="0.0201331745640703 0.0396148629745278 0.0598789015222227"
+        rpy="0 0 0" />
+      <mass
+        value="0.381629355089281" />
+      <inertia
+        ixx="0.000666215133650903"
+        ixy="3.70788294288064E-07"
+        ixz="-1.10122213246343E-08"
+        iyy="0.00063434032917477"
+        iyz="-3.98950562973382E-05"
+        izz="0.000163832909158247" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/right_rocker.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/right_rocker.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="body_axis"
+    type="revolute">
+    <origin
+      xyz="-0.2635 -0.14208 0.2253"
+      rpy="-1.5375 0 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_rocker" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_bogie">
+    <inertial>
+      <origin
+        xyz="-0.0322054844419332 0.0247135791959508 0.0481289019743297"
+        rpy="0 0 0" />
+      <mass
+        value="0.458946835321546" />
+      <inertia
+        ixx="0.000172516702455356"
+        ixy="-2.68465768927094E-07"
+        ixz="3.32684300786504E-05"
+        iyy="0.000353362772556815"
+        iyz="-1.52307314040597E-07"
+        izz="0.000322867252262944" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/right_bogie.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/right_bogie.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_rb_axis"
+    type="revolute">
+    <origin
+      xyz="0.046482 0.099959 0.34434"
+      rpy="0 0.78862 1.5708" />
+    <parent
+      link="right_rocker" />
+    <child
+      link="right_bogie" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="front_right_corner">
+    <inertial>
+      <origin
+        xyz="0.0189471511851323 0.0845029114552065 0.0788332743794987"
+        rpy="0 0 0" />
+      <mass
+        value="0.170898118027162" />
+      <inertia
+        ixx="0.000119924517297295"
+        ixy="1.52374177678027E-07"
+        ixz="8.01988900458528E-08"
+        iyy="0.000116721350874422"
+        iyz="7.74901904912062E-08"
+        izz="7.38122418529157E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_right_corner.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_right_corner.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_right_corner_joint"
+    type="revolute">
+    <origin
+      xyz="-0.11358 0.008382 0.12426"
+      rpy="1.5708 -0.7854 -3.1416" />
+    <parent
+      link="right_bogie" />
+    <child
+      link="front_right_corner" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="front_right_wheel">
+    <inertial>
+      <origin
+        xyz="0.000920077477292003 -3.57187452337815E-07 -6.26439688854868E-08"
+        rpy="0 0 0" />
+      <mass
+        value="1.42144213943392" />
+      <inertia
+        ixx="0.00582217577923824"
+        ixy="1.0740566975468E-07"
+        ixz="-7.84764297531393E-08"
+        iyy="0.00388788180662093"
+        iyz="9.17913062171218E-08"
+        izz="0.00388799991063227" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_right_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/front_right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_right_drive_joint"
+    type="continuous">
+    <origin
+      xyz="0.01905 0.13525 0.019048"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="front_right_corner" />
+    <child
+      link="front_right_wheel" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_middle_wheel">
+    <inertial>
+      <origin
+        xyz="0.000920085743422172 -3.33102865375003E-07 -9.23430030241347E-08"
+        rpy="0 0 0" />
+      <mass
+        value="1.42144066677999" />
+      <inertia
+        ixx="0.0058221748631648"
+        ixy="1.0778342758596E-07"
+        ixz="-7.90685859479044E-08"
+        iyy="0.00388788096645154"
+        iyz="9.13237951596533E-08"
+        izz="0.00388799967352275" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/right_middle_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/right_middle_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_middle_drive_joint"
+    type="continuous">
+    <origin
+      xyz="0.15833 -0.058147 0.02832"
+      rpy="-0.74693 0 -1.5708" />
+    <parent
+      link="right_bogie" />
+    <child
+      link="right_middle_wheel" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="back_right_corner">
+    <inertial>
+      <origin
+        xyz="0.0189471511851824 0.0845029114361343 0.0788332743737901"
+        rpy="0 0 0" />
+      <mass
+        value="0.170898117963101" />
+      <inertia
+        ixx="0.000119924517297052"
+        ixy="1.5237417760746E-07"
+        ixz="8.01988900562086E-08"
+        iyy="0.00011672135087429"
+        iyz="7.74901904905798E-08"
+        izz="7.38122418528905E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_right_corner.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_right_corner.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back_right_corner_joint"
+    type="revolute">
+    <origin
+      xyz="0.0381 0.088265 -0.0762"
+      rpy="-1.5708 -1.5708 0" />
+    <parent
+      link="right_rocker" />
+    <child
+      link="back_right_corner" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="back_right_wheel">
+    <inertial>
+      <origin
+        xyz="0.000920081268053069 -3.61358454936678E-07 -1.86920939030874E-07"
+        rpy="0 0 0" />
+      <mass
+        value="1.42144229319736" />
+      <inertia
+        ixx="0.00582217590586419"
+        ixy="1.07407175455419E-07"
+        ixz="-7.85543312223584E-08"
+        iyy="0.00388788206482551"
+        iyz="9.18001364360943E-08"
+        izz="0.00388800014815902" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_right_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://osr_description/meshes/back_right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="back_right_drive_joint"
+    type="continuous">
+    <origin
+      xyz="0.01905 0.13525 0.019048"
+      rpy="1.5708 1.5708 0" />
+    <parent
+      link="back_right_corner" />
+    <child
+      link="back_right_wheel" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

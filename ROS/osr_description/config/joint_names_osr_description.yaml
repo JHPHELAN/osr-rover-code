@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'left_lb_axis', 'front_left_corner_joint', 'front_left_drive_joint', 'middle_left_drive_joint', 'back_left_corner_joint', 'back_left_drive_joint', 'body_axis', 'right_rb_axis', 'front_right_corner_joint', 'front_right_drive_joint', 'right_middle_drive_joint', 'back_right_corner_joint', 'back_right_drive_joint', ]
