@@ -85,8 +85,8 @@
     </collision>
   </link>
   <joint
-    name="body_axis"
-    type="fixed">
+    name="body_axis_left"
+    type="continuous">
     <origin
       xyz="-0.263500464134776 0.18018125 0.225295670634321"
       rpy="-1.53745923062483 0 -1.5707963267949" />
@@ -95,7 +95,7 @@
     <child
       link="left_rocker" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="left_bogie">
@@ -139,7 +139,7 @@
   </link>
   <joint
     name="left_lb_axis"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="0 0.024945 0.37574"
       rpy="0.033199 0 0" />
@@ -148,7 +148,7 @@
     <child
       link="left_bogie" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="0"
@@ -197,7 +197,7 @@
   </link>
   <joint
     name="front_left_corner_joint"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="0 0.088265 0.17145"
       rpy="0 1.5708 0" />
@@ -206,7 +206,7 @@
     <child
       link="front_left_corner" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="0"
@@ -264,7 +264,7 @@
     <child
       link="front_left_wheel" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="middle_left_wheel">
@@ -317,7 +317,7 @@
     <child
       link="middle_left_wheel" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="back_left_corner">
@@ -361,16 +361,16 @@
   </link>
   <joint
     name="back_left_corner_joint"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="0.01905 0.068201 -0.05715"
-      rpy="-1.5708 1.5708 0" />
+      rpy="0 1.5708 0" />
     <parent
       link="left_rocker" />
     <child
       link="back_left_corner" />
     <axis
-      xyz="0 1 0" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="0"
@@ -421,14 +421,14 @@
     name="back_left_drive_joint"
     type="continuous">
     <origin
-      xyz="0 0.066549 0"
+      xyz="0 0.2705 0"
       rpy="1.5708 1.5708 0" />
     <parent
       link="back_left_corner" />
     <child
       link="back_left_wheel" />
     <axis
-      xyz="1 0 0" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="right_rocker">
@@ -471,8 +471,8 @@
     </collision>
   </link>
   <joint
-    name="body_axis"
-    type="revolute">
+    name="body_axis_right"
+    type="continuous">
     <origin
       xyz="-0.2635 -0.14208 0.2253"
       rpy="-1.5375 0 -1.5708" />
@@ -481,7 +481,7 @@
     <child
       link="right_rocker" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="0"
@@ -530,7 +530,7 @@
   </link>
   <joint
     name="right_rb_axis"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="0.046482 0.099959 0.34434"
       rpy="0 0.78862 1.5708" />
@@ -539,7 +539,7 @@
     <child
       link="right_bogie" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="0"
@@ -588,7 +588,7 @@
   </link>
   <joint
     name="front_right_corner_joint"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="-0.11358 0.008382 0.12426"
       rpy="1.5708 -0.7854 -3.1416" />
@@ -597,7 +597,7 @@
     <child
       link="front_right_corner" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="0"
@@ -655,7 +655,7 @@
     <child
       link="front_right_wheel" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="right_middle_wheel">
@@ -708,7 +708,7 @@
     <child
       link="right_middle_wheel" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="back_right_corner">
@@ -752,16 +752,16 @@
   </link>
   <joint
     name="back_right_corner_joint"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="0.0381 0.088265 -0.0762"
-      rpy="-1.5708 -1.5708 0" />
+      rpy="0 -1.5708 0" />
     <parent
       link="right_rocker" />
     <child
       link="back_right_corner" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
     <limit
       lower="0"
       upper="0"
@@ -819,6 +819,6 @@
     <child
       link="back_right_wheel" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 1" />
   </joint>
 </robot>
