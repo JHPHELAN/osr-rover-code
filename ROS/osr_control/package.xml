@@ -16,6 +16,8 @@
   <exec_depend>roscpp</exec_depend>
   <depend>controller_manager</depend>
   <depend>roboclaw-hardware-interface</depend>
+  <exec_depend>joint-state-controller</exec_depend>
+  <exec_depend>velocity-controllers</exec_depend>
 
   <export>
   </export>

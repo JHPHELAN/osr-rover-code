@@ -19,7 +19,10 @@
           type="spawner"
           respawn="false"
           output="screen"
-          args="osr_controllers/drive_velocity_controller">
+          args="
+                osr_controllers/drive_velocity_controller
+                osr_controllers/joint_state_controller
+                ">
     </node>
   </group>
 
