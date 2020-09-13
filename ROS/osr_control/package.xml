@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>osr_control</name>
+  <version>0.0.0</version>
+  <description>The osr_control package</description>
+
+  <maintainer email="achille.verheye@gmail.com">achille</maintainer>
+
+  <license>MIT</license>
+
+  <author email="achille.verheye@gmail.com">achille</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+  <depend>controller_manager</depend>
+  <depend>roboclaw-hardware-interface</depend>
+
+  <export>
+  </export>
+</package>

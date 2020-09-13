@@ -1,0 +1,9 @@
+osr_controllers:
+  drive_velocity_controller:
+    type: velocity_controllers/joint_group_velocity_controller
+    joints:
+      - joint1
+      - joint2
+    gains:
+      joint1: {p: 10, d: 1, i: 0}
+      joint2: {p: 10, d: 1, i: 0}
