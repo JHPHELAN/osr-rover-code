@@ -1,3 +1,5 @@
+# command_interface is used for the controller, which accepts velocity commands. Has nothing to do with the
+# fact that position commands are sent to the corner wheels. Don't change unless you know what you're doing
 roboclaw_mapping:
   # gear ratio is approx 172, exact value is 171.79 though
   drive_left_front:
@@ -5,31 +7,37 @@ roboclaw_mapping:
     channel: M2
     ticks_per_rev: 48
     gear_ratio: 171.79
+    command_interface: "velocity"
   drive_left_middle:
     address: 130
     channel: M1
     ticks_per_rev: 48
     gear_ratio: 171.79
+    command_interface: "velocity"
   drive_left_back:
     address: 129
     channel: M2
     ticks_per_rev: 48
     gear_ratio: 171.79
+    command_interface: "velocity"
   drive_right_back:
     address: 129
     channel: M1
     ticks_per_rev: 48
     gear_ratio: 171.79
+    command_interface: "velocity"
   drive_right_middle:
     address: 128
     channel: M2
     ticks_per_rev: 48
     gear_ratio: 171.79
+    command_interface: "velocity"
   drive_right_front:
     address: 128
     channel: M1
     ticks_per_rev: 48
     gear_ratio: 171.79
+    command_interface: "velocity"
   # gear ratio for the corner motors is 16/48 as the CPR is measured after the gearbox, but
   # to the output shaft through the gears connecting the absolute encoder
   # ticks per revolution for the absolute analog encoders: 0-2V with 1mV steps --> 2000
@@ -38,18 +46,22 @@ roboclaw_mapping:
     channel: M2
     ticks_per_rev: 2000
     gear_ratio: 0.3333
+    command_interface: "velocity"
   corner_left_back:
     address: 132
     channel: M1
     ticks_per_rev: 2000
+    command_interface: "velocity"
     gear_ratio: 0.3333
   corner_right_back:
     address: 131
     channel: M2
     ticks_per_rev: 2000
     gear_ratio: 0.3333
+    command_interface: "velocity"
   corner_right_front:
     address: 131
     channel: M1
     ticks_per_rev: 2000
     gear_ratio: 0.3333
+    command_interface: "velocity"
