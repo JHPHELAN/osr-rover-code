@@ -1,29 +1,27 @@
 <launch>
 
-  <group ns="/control">
-    <!-- Load params for the hardware interface and controllers -->
-    <rosparam file="$(find osr_control)/config/controllers.yaml"/>
+  <!-- Load params for the hardware interface and controllers -->
+  <rosparam file="$(find osr_control)/config/controllers.yaml"/>
 
-    <!-- launch the hardware interface -->
-    <node name="osr_hw_interface"
-          pkg="osr_control"
-          type="osr_control_node"
-          output="screen"
-          required="true">
-          <rosparam command="load" file="$(find osr_control)/config/hardware_interface.yaml"/>
-    </node>
+  <!-- launch the hardware interface -->
+  <node name="osr_hw_interface"
+        pkg="osr_control"
+        type="osr_control_node"
+        output="screen"
+        required="true">
+        <rosparam command="load" file="$(find osr_control)/config/hardware_interface.yaml"/>
+  </node>
 
-    <!-- start the controller manager with a controller -->
-    <node name="controller_spawner"
-          pkg="controller_manager"
-          type="spawner"
-          respawn="false"
-          output="screen"
-          args="
-                osr_controllers/drive_velocity_controller
-                osr_controllers/joint_state_controller
-                ">
-    </node>
-  </group>
+  <!-- start the controller manager with a controller -->
+  <node name="controller_spawner"
+        pkg="controller_manager"
+        type="spawner"
+        respawn="false"
+        output="screen"
+        args="
+              osr_controllers/drive_velocity_controller
+              osr_controllers/joint_state_controller
+              ">
+  </node>
 
 </launch>
