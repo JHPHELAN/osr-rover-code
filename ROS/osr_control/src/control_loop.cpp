@@ -14,7 +14,7 @@ OSRControlLoop::OSRControlLoop(ros::NodeHandle& nh, std::shared_ptr<RoboclawHard
   _last_time = steady_clock::now();
 
   // set the variables TODO load from param server
-  _loop_frequency = 100;
+  _loop_frequency = 30;
 
   // Start timer that will periodically call OSRControlLoop::update_loop
   _desired_update_interval = ros::Duration(1 / _loop_frequency);
