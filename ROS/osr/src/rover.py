@@ -36,15 +36,15 @@ class Rover(object):
         self.curr_twist = TwistWithCovariance()
         self.curr_turning_radius = self.max_radius
 
-        rospy.Subscriber("/cmd_vel", Twist, self.cmd_cb, callback_args=False)
-        rospy.Subscriber("/cmd_vel_intuitive", Twist, self.cmd_cb, callback_args=True)
-        rospy.Subscriber("/encoder", JointState, self.enc_cb)
-
         self.corner_cmd_pub = rospy.Publisher("/cmd_corner", CommandCorner, queue_size=1)
         self.drive_cmd_pub = rospy.Publisher("/cmd_drive", CommandDrive, queue_size=1)
         self.turning_radius_pub = rospy.Publisher("/turning_radius", Float64, queue_size=1)
         self.odometry_pub = rospy.Publisher("/odom", Odometry, queue_size=2)
         self.tf_pub = tf2_ros.TransformBroadcaster()
+
+        rospy.Subscriber("/cmd_vel", Twist, self.cmd_cb, callback_args=False)
+        rospy.Subscriber("/cmd_vel_intuitive", Twist, self.cmd_cb, callback_args=True)
+        rospy.Subscriber("/encoder", JointState, self.enc_cb)
 
     def cmd_cb(self, twist_msg, intuitive=False):
         """
@@ -73,11 +73,11 @@ class Rover(object):
         if math.isnan(max_vel):  # turning radius infinite, going straight
             max_vel = self.max_vel
         velocity = min(max_vel, twist_msg.linear.x)
-        rospy.logdebug("velocity drive cmd: {} m/s".format(velocity))
+        rospy.logdebug_throttle(1, "velocity drive cmd: {} m/s".format(velocity))
 
-        drive_cmd_msg = self.calculate_drive_velocities(velocity, self.curr_turning_radius)
-        rospy.logdebug("drive cmd:\n{}".format(drive_cmd_msg))
-        rospy.logdebug("corner cmd:\n{}".format(corner_cmd_msg)) 
+        drive_cmd_msg = self.calculate_drive_velocities(velocity, desired_turning_radius)
+        rospy.logdebug_throttle(1, "drive cmd:\n{}".format(drive_cmd_msg))
+        rospy.logdebug_throttle(1, "corner cmd:\n{}".format(corner_cmd_msg)) 
         if self.corner_cmd_threshold(corner_cmd_msg):
             self.corner_cmd_pub.publish(corner_cmd_msg)
         self.drive_cmd_pub.publish(drive_cmd_msg)
@@ -197,6 +197,9 @@ class Rover(object):
         A large turning radius means mostly straight. Any radius larger than max_radius is essentially straight
         because of the encoders' resolution
 
+        The positions are expressed in the motor's frame with the positive z-axis pointing down. This means
+        that a positive angle corresponds to a right turn
+
         :param radius: positive value means turn left. 0.45 < abs(turning_radius) < inf
         """
         cmd_msg = CommandCorner()
@@ -208,15 +211,15 @@ class Rover(object):
         theta_front_farthest = math.atan2(self.d3, abs(radius) + self.d1)
 
         if radius > 0:
-            cmd_msg.left_front_pos = theta_front_closest
-            cmd_msg.left_back_pos = -theta_front_closest
-            cmd_msg.right_back_pos = -theta_front_farthest
-            cmd_msg.right_front_pos = theta_front_farthest
+            cmd_msg.left_front_pos = -theta_front_closest
+            cmd_msg.left_back_pos = theta_front_closest
+            cmd_msg.right_back_pos = theta_front_farthest
+            cmd_msg.right_front_pos = -theta_front_farthest
         else:
-            cmd_msg.left_front_pos = -theta_front_farthest
-            cmd_msg.left_back_pos = theta_front_farthest
-            cmd_msg.right_back_pos = theta_front_closest
-            cmd_msg.right_front_pos = -theta_front_closest
+            cmd_msg.left_front_pos = theta_front_farthest
+            cmd_msg.left_back_pos = -theta_front_farthest
+            cmd_msg.right_back_pos = -theta_front_closest
+            cmd_msg.right_front_pos = theta_front_closest
 
         return cmd_msg
 
@@ -249,7 +252,7 @@ class Rover(object):
                 if twist.angular.z == 0:
                     return self.max_radius
                 else:
-                    radius = twist.angular.z  # proxy
+                    radius = self.min_radius * self.max_vel / twist.angular.z  # proxy
             else:  # mathematical mode: standing still, so can't generate an angular velocity
                 return self.max_radius  
         if radius > 0:
@@ -283,10 +286,11 @@ class Rover(object):
         motors may not be aligned perfectly and drive velocities might fight each other
         """
         # calculate current turning radius according to each corner wheel's angle
-        theta_fl = self.curr_positions['corner_left_front']
-        theta_fr = self.curr_positions['corner_right_front']
-        theta_bl = self.curr_positions['corner_left_back']
-        theta_br = self.curr_positions['corner_right_back']
+        # corner motor angles should be flipped since different coordinate axes in this node (positive z up)
+        theta_fl = -self.curr_positions['corner_left_front']
+        theta_fr = -self.curr_positions['corner_right_front']
+        theta_bl = -self.curr_positions['corner_left_back']
+        theta_br = -self.curr_positions['corner_right_back']
         # sum wheel angles to find out which direction the rover is mostly turning in
         if theta_fl + theta_fr + theta_bl + theta_br > 0:  # turning left
             r_front_closest = self.d1 + self.angle_to_turning_radius(theta_fl)
@@ -301,8 +305,8 @@ class Rover(object):
         # get a best estimate of the turning radius by taking the median value (avg sensitive to outliers)
         approx_turning_radius = sum(sorted([r_front_farthest, r_front_closest, r_back_farthest, r_back_closest])[1:3])/2.0
         if math.isnan(approx_turning_radius):
-            approx_turning_radius = float("Inf")
-        rospy.logdebug("Current approximate turning radius: {}".format(round(approx_turning_radius, 2)))
+            approx_turning_radius = self.max_radius
+        rospy.logdebug_throttle(1, "Current approximate turning radius: {}".format(round(approx_turning_radius, 2)))
         self.curr_turning_radius = approx_turning_radius
 
         # we know that the linear velocity in x direction is the instantaneous velocity of the middle virtual
