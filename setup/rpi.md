@@ -96,7 +96,7 @@ First we'll create a workspace for the rover code.
 mkdir -p ~/osr_ws/src && cd ~/osr_ws
 
 # Source your newly created ROS environment
-source /opt/ros/$ROS_DISTRO/setup.bash
+source /opt/ros/melodic/setup.bash
 ```
 
 ### 4.2 Clone and build the rover code
@@ -108,27 +108,47 @@ cd ~/osr_ws/src
 git clone https://github.com/nasa-jpl/osr-rover-code.git
 
 # install the dependencies
-rosdep install --from-paths src --ignore-src
 cd ..
+rosdep install --from-paths src --ignore-src
 catkin_make
 
 # add the generated files to the path so ROS can find them
 source devel/setup.bash
 ```
 
-The rover has some customizable settings that will overwrite the default values. Whether you have any changes compared to the defaults or not, you have to manually create these files:
+The rover has some customizable settings that will overwrite the default values. 
+Whether you have any changes compared to the defaults or not, you have to manually create these files:
 ```
 cd ~/osr_ws/src/osr-rover-code/ROS/osr_bringup/config
 touch physical_properties_mod.yaml roboclaw_params_mod.yaml
 ```
-To change any values from the default, modify these files instead so they don't get tracked by git. The files follow the same structure as the default.
 
+To change any values from the default, modify these files (the _mod.yaml ones) instead so your changes don't get committed to git. 
+The files follow the same structure as the default. Just include the values that you need to change as the default
+values for other parameters may change over time.
+
+You might also want to modify the file `osr-rover-code/ROS/osr_bringup/launch/osr.launch` to change the velocities the gamepad controller will
+send to the rover. These values in the node joy2twist are of interest:
+```
+<param name="scale_linear" value="0.18"/>
+<param name="scale_angular" value="0.4"/>
+<param name="scale_linear_turbo" value="0.24"/>
+```
+The maximum speed your rover can go is determined by the no-load speed of your drive motors. The default no-load speed is located
+in the file [physical_properties.yaml](../ROS/osr_bringup/config/physical_properties.yaml) as `drive_no_load_rpm`, unless you modified it in the corresponding `_mod.yaml` file. 
+This maximum speed corresponds to `scale_linear_turbo` and can be calculated as `drive_no_load_rpm * 2pi / 60 * wheel radius (=0.075m)`.
+Based on this upper limit, let's set our regular moving speed to a sensible fraction of that which you can configure to your liking.
+Start with e.g. 0.75 * scale_linear_turbo. If you think it's too slow or too fast, simply scale it up or down.
+
+The turning speed of the rover, just like a regular car, depends on how fast it's going. As a result, `scale_angular`
+should be set to `scale_linear / min_radius`. For the default configuration, the `min_radius` equals `0.45m`.
 
 ### 4.3 Add ROS config scripts to .bashrc
 
 The `source...foo.bash` lines above are used to manually configure your ROS environment. We can do this automatically in the future by doing:
 ```
-echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc 
+cd ~
+echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc 
 echo "source ~/osr_ws/devel/setup.bash" >> ~/.bashrc
 ```
 This adds the `source` lines to `~/.bashrc`, which runs whenever a new shell is opened on the RPi - by logging in via ssh, for example. So, from now on, when you log into the RPi your new command line environment will have the appropriate configuration for ROS and the rover code.
@@ -138,13 +158,14 @@ This adds the `source` lines to `~/.bashrc`, which runs whenever a new shell is 
 
 The RPi will talk to the motor controllers over serial.
 
-Because we are using the serial port for communicating with the roboclaw motor controllers, we have to disable the serial-getty@ttyS0.service service. This service has some level of control over serial devices that we use, so if we leave it on it we'll get weird errors ([source](https://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3-4/)).
+Because we are using the serial port for communicating with the roboclaw motor controllers, we have to disable the serial-getty@ttyS0.service service. This service has some level of control over serial devices that we use, so if we leave it on it we'll get weird errors ([source](https://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3-4/)). Note that the masking step was suggested [here](https://stackoverflow.com/a/43633467/4292910). It seems to be necessary for some setups of the rpi4 - just using `systemctl disable` won't cut it for disabling the service.
 
-Note that the following **may** step may stop you from being able to communicate with the RPi over serial.
+**Note that the following will stop you from being able to communicate with the RPi over the serial, wired connection. However, it won't affect communication with the rpi with SSH over wifi.**
 
 ```
 sudo systemctl stop serial-getty@ttyS0.service
 sudo systemctl disable serial-getty@ttyS0.service
+sudo systemctl mask serial-getty@ttyS0.service
 ```
 
 
