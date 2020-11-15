@@ -28,11 +28,11 @@
     <param name="camera_name" value="raspicam"/>
   </node> -->
   <!-- tf for head cam -->
-  <node name="tf2_static_pub_base_link_to_raspicam"
+  <!-- <node name="tf2_static_pub_base_link_to_raspicam"
         pkg="tf2_ros"
         type="static_transform_publisher"
         args="0.08 0 0.1 0 0 0 1 base_link raspicam">
-  </node>
+  </node> -->
   <!-- tf for head cam -->
   <node name="tf2_static_pub_base_link_to_frontwebcam"
         pkg="tf2_ros"
@@ -44,14 +44,14 @@
   </include>
 
   <!-- launch the SICK TIM561 lidar -->
-  <!--<include file="$(find sick_scan)/launch/sick_lms_5xx.launch" ns="lidar">
+  <include file="$(find sick_scan)/launch/sick_lms_5xx.launch" ns="lidar">
     <arg name="hostname" value="192.168.4.5"/>
-  </include>-->
+  </include>
   <!-- tf for lidar -->
-  <!--<node name="tf2_static_pub_base_link_to_lidar" 
+  <node name="tf2_static_pub_base_link_to_lidar" 
         pkg="tf2_ros" 
         type="static_transform_publisher"
-        args="-0.01 0 -0.01 0 0 0 1 base_link cloud">
-  </node>-->
+        args="-0.01 0.01 -0.25 0 0 0 1 base_link cloud">
+  </node>
 
 </launch>
