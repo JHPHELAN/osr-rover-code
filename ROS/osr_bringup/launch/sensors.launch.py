@@ -21,12 +21,32 @@ def generate_launch_description():
         parameters = [config]
     )
     ld.add_action(node)
-    # transform tf2_ros
+    # lidar tf2_ros
     ld.add_action(Node(
         package='tf2_ros',
         name='laser_tf2',
         executable='static_transform_publisher',
         arguments=["0.01", "0.03", "0.25", "0", "0", "0", "1", "base_link", "cloud"],
+        output='screen'
+    ))
+    ld.add_action(Node(
+        package='v4l2_camera',
+        name='front_camera_node',
+        executable='v4l2_camera_node',
+        parameters=[
+            {'video_device': '/dev/video0'},
+            {'pixel_format': 'YUYV'},
+            {'camera_frame_id': 'front_webcam'},
+            {'output_encoding': 'rgb8'},
+            {'image_size': [1280, 720]}
+        ]
+    ))
+    # front camera tf2_ros
+    ld.add_action(Node(
+        package='tf2_ros',
+        name='camera_tf2',
+        executable='static_transform_publisher',
+        arguments=["0.12", "0.03", "0.22", "0", "0", "0", "1", "base_link", "front_webcam"],
         output='screen'
     ))
 
